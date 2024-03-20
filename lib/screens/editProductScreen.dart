@@ -35,7 +35,8 @@ class EditProductScreen extends StatelessWidget {
             // Text field for item name
             TextField(
               controller: itemNameController,
-              decoration: InputDecoration(labelText: 'Item Name'),
+              decoration: InputDecoration(labelText: 'Item Name (read Only)'),
+              readOnly: true,
             ),
             // Text field for description
             TextField(

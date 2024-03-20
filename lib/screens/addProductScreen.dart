@@ -4,11 +4,20 @@ import 'package:myapp/bloc/product_bloc.dart';
 import 'package:myapp/bloc/product_event.dart';
 import 'package:myapp/utils/product.dart';
 
-class AddProductScreen extends StatelessWidget {
+class AddProductScreen extends StatefulWidget {
+  @override
+  State<AddProductScreen> createState() => _AddProductScreenState();
+}
+
+class _AddProductScreenState extends State<AddProductScreen> {
   // Text editing controllers for item name, description, and material
   final TextEditingController itemNameController = TextEditingController();
+
   final TextEditingController descriptionController = TextEditingController();
+
   final TextEditingController materialController = TextEditingController();
+
+  String? _selectedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +31,28 @@ class AddProductScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Text field for item name
-            TextField(
-              controller: itemNameController,
-              decoration: InputDecoration(labelText: 'Item Name'),
-            ),
+          DropdownButton<String>(
+          value: _selectedItem,
+          onChanged: (String? newValue) {
+            setState(() {
+              _selectedItem = newValue;
+            });
+          },
+          items: <String>[
+            'electricity',
+            'petrol',
+            'diesel',
+            'lpg',
+            'other',
+            // Add more items as needed
+          ].map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          hint: Text('Select Item'),
+        ),
             // Text field for description
             TextField(
               controller: descriptionController,
@@ -43,7 +70,7 @@ class AddProductScreen extends StatelessWidget {
               onPressed: () {
                 // Create a new product object using the entered data
                 final newProduct = Product(
-                  itemName: itemNameController.text,
+                  itemName: _selectedItem.toString(),
                   description: descriptionController.text,
                   material: materialController.text,
                 );

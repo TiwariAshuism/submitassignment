@@ -62,7 +62,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   // Save products to shared preferences
   Future<void> _saveProductsToPrefs(List<Product> products) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String productsJson = jsonEncode(products);
+
+    String productsJson = json.encode(products
+          .map<Map<String, dynamic>>((product) => product.toJson())
+          .toList(),
+    );
     await prefs.setString('products', productsJson);
   }
 

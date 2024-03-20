@@ -1,8 +1,8 @@
 // Class representing a product
 class Product {
-  final String itemName; // Name of the item
-  final String description; // Description of the item
-  final String material; // Material of the item
+   String itemName; // Name of the item
+   String description; // Description of the item
+   String material; // Material of the item
 
   // Constructor
   Product({
